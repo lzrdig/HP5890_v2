@@ -1,0 +1,47 @@
+Command format:
+
+[ec] [cc] [ss] [parameters if needed] [ts]
+
+[ec] - command header: ASCII escape character (0x001B) ~C
+[cc] - command string
+[parameters]
+[ts] - termination character: default - carrier return (0x000A)
+
+Command Code	Description
+
+// Configuration and Setup group. Stage (ss) specifier non-existent. No read back from device
+ID		Identification command
+EP		Enable Even Parity
+OP 		Enable Odd Parity	
+ZP		Disable Parity	
+DF		Set HP 5890 default configuration
+E+		Enable echo
+E-		Disable echo (default)
+H+		Enable host handshake -ENQ/ACK
+H-		Disable host handshake (default)
+N+		Enable HP 5890 (node) handshake -ENQ/ACK (default)
+N-		Disable HP 5890 (node) handshake
+RS		Define read sequence (default (none))
+TS		Define termination sequence (default (CR/LF))
+X+		Enable XON/XOFF protocol
+X-		Disable XON/XOFF protocol (default)
+AR 		Acquire or release remote control; locks keyboard
+AT		read actual temperatures and flows
+CA		change all; send a workfile to HP 5890
+EV		read HP 5890 environmental status
+IC		read hp 5890 instrument configuration
+IF		read hp 5890 instrument fault string
+IK 		read last hp 5890 key pressed
+LA		list all; receive a workfile from HP 5890
+LU		lock or unlock the start key
+OT		output text to the hp 5890 display
+RF		read Hp 5890 serial interface fault word
+RI		read run and readiness information
+RK		perform remote keystrokes from the host
+RT		retransmit last message sent by the hp 5890
+HR		delays start until host is ready
+SM		requests that the host be notified when the HP 5890 status is modified
+ST		start notification when hp 5890 begins to run
+CD 		configure data transfer
+CP		configure signal producers
+SD		send signal data
