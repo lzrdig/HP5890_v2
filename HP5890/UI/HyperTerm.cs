@@ -7,6 +7,7 @@ namespace HP5890
     {
         private MainWnd mainFrm;
         private RS232cfgForm portFrm;
+        private HP5890mgr curCmdMgr;
 
         public HyperTermForm()
         {
@@ -29,6 +30,11 @@ namespace HP5890
             }
             portFrm.Show();
             portFrm.BringToFront();
+        }
+
+        private void sendCommandToPort(object sender, EventArgs e)
+        {
+            curCmdMgr.CompileHP5890Command(textBoxCommands.Text);
         }
     }
 }

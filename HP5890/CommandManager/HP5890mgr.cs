@@ -98,7 +98,7 @@ namespace HP5890
             get { return _terminationChr; }
         }
 
-        public String PreCmdChar
+        public String PreCmdStr
         {
             set { _preCommand = value; }
             get { return _preCommand; }
@@ -141,7 +141,19 @@ namespace HP5890
             gcHP5890cmds.Add("LA", cmdObj);
         }
 
-        public void SendCommand(String cmdStr)
+        public string CompileHP5890Command(string hwCmd)
+        {
+            String outCommand = String.Empty;
+
+            if(gcHP5890cmds.ContainsKey(hwCmd))
+            {
+                HP5890command curCmd = gcHP5890cmds[hwCmd];                
+            }
+
+            return outCommand;
+        }
+
+        public void SendCommand(string cmdStr)
         {
             string commandToSend;
 
@@ -189,6 +201,13 @@ namespace HP5890
         public void LAlistall()
         {//LA		List all. Get the workfile list from the device
             SendCommand("LA");
+        }
+        #endregion
+
+        #region DATA SETUP AND CONTROL
+        public void CDconfigdata()
+        {//CD		Configure data transfer
+            SendCommand("CD");
         }
         #endregion
     }

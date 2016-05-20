@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="Classes\clsGlobals.cs" />
     <Compile Include="CommandManager\HP5890mgr.cs" />
+    <Compile Include="CommandManager\IHP5890mgr.cs" />
     <Compile Include="UI\HyperTerm.cs">
       <SubType>Form</SubType>
     </Compile>

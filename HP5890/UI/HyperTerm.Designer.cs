@@ -81,6 +81,7 @@
             this.buttonWrite.TabIndex = 5;
             this.buttonWrite.Text = "Write";
             this.buttonWrite.UseVisualStyleBackColor = true;
+            this.buttonWrite.Click += new System.EventHandler(this.sendCommandToPort);
             // 
             // buttonRead
             // 
