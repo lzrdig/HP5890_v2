@@ -7,7 +7,7 @@ Command format:
 [parameters]
 [ts] - termination character: default - carrier return (0x000A)
 
-Command Code	Description
+Command      Code Description       Command Group
 
 // Configuration and Setup group. Stage (ss) specifier non-existent. No read back from device
 ID		Identification command
