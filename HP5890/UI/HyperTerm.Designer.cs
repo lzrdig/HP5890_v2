@@ -36,11 +36,12 @@
             this.buttonRead = new System.Windows.Forms.Button();
             this.comboBoxCommandType = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.simulBtnStatus = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // buttonShowPortSettings
             // 
-            this.buttonShowPortSettings.Location = new System.Drawing.Point(294, 12);
+            this.buttonShowPortSettings.Location = new System.Drawing.Point(294, 36);
             this.buttonShowPortSettings.Name = "buttonShowPortSettings";
             this.buttonShowPortSettings.Size = new System.Drawing.Size(86, 39);
             this.buttonShowPortSettings.TabIndex = 1;
@@ -50,7 +51,7 @@
             // 
             // textBoxCommands
             // 
-            this.textBoxCommands.Location = new System.Drawing.Point(12, 106);
+            this.textBoxCommands.Location = new System.Drawing.Point(12, 118);
             this.textBoxCommands.Multiline = true;
             this.textBoxCommands.Name = "textBoxCommands";
             this.textBoxCommands.Size = new System.Drawing.Size(368, 61);
@@ -66,7 +67,7 @@
             // 
             // buttonWriteRead
             // 
-            this.buttonWriteRead.Location = new System.Drawing.Point(13, 183);
+            this.buttonWriteRead.Location = new System.Drawing.Point(13, 189);
             this.buttonWriteRead.Name = "buttonWriteRead";
             this.buttonWriteRead.Size = new System.Drawing.Size(97, 35);
             this.buttonWriteRead.TabIndex = 4;
@@ -75,7 +76,7 @@
             // 
             // buttonWrite
             // 
-            this.buttonWrite.Location = new System.Drawing.Point(146, 183);
+            this.buttonWrite.Location = new System.Drawing.Point(146, 189);
             this.buttonWrite.Name = "buttonWrite";
             this.buttonWrite.Size = new System.Drawing.Size(97, 35);
             this.buttonWrite.TabIndex = 5;
@@ -85,7 +86,7 @@
             // 
             // buttonRead
             // 
-            this.buttonRead.Location = new System.Drawing.Point(283, 183);
+            this.buttonRead.Location = new System.Drawing.Point(283, 189);
             this.buttonRead.Name = "buttonRead";
             this.buttonRead.Size = new System.Drawing.Size(97, 35);
             this.buttonRead.TabIndex = 6;
@@ -100,7 +101,7 @@
             "status and setpoint",
             "run control",
             "data set-up and control"});
-            this.comboBoxCommandType.Location = new System.Drawing.Point(225, 70);
+            this.comboBoxCommandType.Location = new System.Drawing.Point(225, 86);
             this.comboBoxCommandType.Name = "comboBoxCommandType";
             this.comboBoxCommandType.Size = new System.Drawing.Size(155, 21);
             this.comboBoxCommandType.TabIndex = 7;
@@ -109,18 +110,29 @@
             // button1
             // 
             this.button1.BackColor = System.Drawing.SystemColors.AppWorkspace;
-            this.button1.Location = new System.Drawing.Point(12, 13);
+            this.button1.Location = new System.Drawing.Point(12, 37);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(157, 38);
             this.button1.TabIndex = 8;
             this.button1.Text = "port closed";
             this.button1.UseVisualStyleBackColor = false;
             // 
+            // simulBtnStatus
+            // 
+            this.simulBtnStatus.Location = new System.Drawing.Point(13, 6);
+            this.simulBtnStatus.Name = "simulBtnStatus";
+            this.simulBtnStatus.Size = new System.Drawing.Size(367, 23);
+            this.simulBtnStatus.TabIndex = 9;
+            this.simulBtnStatus.Text = "port simulation enabled";
+            this.simulBtnStatus.UseVisualStyleBackColor = true;
+            this.simulBtnStatus.Click += new System.EventHandler(this.portSimulationBtn_Click);
+            // 
             // HyperTermForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(392, 306);
+            this.Controls.Add(this.simulBtnStatus);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBoxCommandType);
             this.Controls.Add(this.buttonRead);
@@ -145,5 +157,6 @@
         private System.Windows.Forms.Button buttonRead;
         private System.Windows.Forms.ComboBox comboBoxCommandType;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button simulBtnStatus;
     }
 }

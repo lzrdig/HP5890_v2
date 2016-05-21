@@ -8,6 +8,7 @@ namespace HP5890
         private MainWnd mainFrm;
         private RS232cfgForm portFrm;
         private HP5890mgr curCmdMgr;
+        private bool siimulState;
 
         public HyperTermForm()
         {
@@ -35,6 +36,14 @@ namespace HP5890
         private void sendCommandToPort(object sender, EventArgs e)
         {
             curCmdMgr.CompileHP5890Command(textBoxCommands.Text);
+        }
+
+        private void portSimulationBtn_Click(object sender, EventArgs e)
+        {
+            if (simulBtnStatus.Text.Equals("port simulation is enabled"))
+                simulBtnStatus.Text = "port simulation is disabled";
+            else
+                simulBtnStatus.Text = "port simulation is enabled";
         }
     }
 }
