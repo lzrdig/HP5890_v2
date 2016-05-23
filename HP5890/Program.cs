@@ -1,7 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Forms;
+using System.IO.Ports;
+using Ninject;
 
 namespace HP5890
 {
@@ -13,11 +13,15 @@ namespace HP5890
         [STAThread]
         static void Main()
         {
+            IKernel _NJkernel = new StandardKernel(new HP5890MgrModule());
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            clsGlobals.g_frmobjMainWnd = new MainWnd();
+
+
+            clsGlobals.g_frmobjMainWnd = new MainWnd(_NJkernel.Get<HP5890mgr>());
             clsGlobals.g_frmobjRS232Config = null;
-            clsGlobals.g_comPort = null;
+
             Application.Run(clsGlobals.g_frmobjMainWnd);
         }
     }

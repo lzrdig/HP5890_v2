@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.grpDet = new System.Windows.Forms.GroupBox();
-            this.RunBtn = new System.Windows.Forms.Button();
             this.StopBtn = new System.Windows.Forms.Button();
+            this.RunBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // grpDet
@@ -42,23 +42,30 @@
             this.grpDet.TabStop = false;
             this.grpDet.Text = "Detectors";
             // 
-            // RunBtn
-            // 
-            this.RunBtn.Image = global::HP5890.Properties.Resources.Green_Arrow;
-            this.RunBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.RunBtn.Location = new System.Drawing.Point(117, 39);
-            this.RunBtn.Name = "RunBtn";
-            this.RunBtn.Size = new System.Drawing.Size(164, 66);
-            this.RunBtn.TabIndex = 1;
-            this.RunBtn.UseVisualStyleBackColor = true;
-            // 
             // StopBtn
             // 
+            this.StopBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.StopBtn.Location = new System.Drawing.Point(309, 39);
             this.StopBtn.Name = "StopBtn";
             this.StopBtn.Size = new System.Drawing.Size(81, 66);
             this.StopBtn.TabIndex = 2;
             this.StopBtn.UseVisualStyleBackColor = true;
+            // 
+            // RunBtn
+            // 
+            this.RunBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+            this.RunBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.RunBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.RunBtn.Image = global::HP5890.Properties.Resources._112_RightArrowShort_Grey;
+            this.RunBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.RunBtn.Location = new System.Drawing.Point(117, 39);
+            this.RunBtn.Name = "RunBtn";
+            this.RunBtn.Padding = new System.Windows.Forms.Padding(10);
+            this.RunBtn.Size = new System.Drawing.Size(164, 66);
+            this.RunBtn.TabIndex = 1;
+            this.RunBtn.Text = "RUN\r\n";
+            this.RunBtn.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.RunBtn.UseVisualStyleBackColor = true;
             // 
             // GCctrl
             // 
@@ -68,7 +75,9 @@
             this.Controls.Add(this.StopBtn);
             this.Controls.Add(this.RunBtn);
             this.Controls.Add(this.grpDet);
+            this.HelpButton = true;
             this.Name = "GCctrl";
+            this.Padding = new System.Windows.Forms.Padding(10);
             this.Text = "HP5890 Control";
             this.ResumeLayout(false);
 

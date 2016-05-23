@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace HP5890
 {
@@ -13,6 +14,8 @@ namespace HP5890
         public HyperTermForm()
         {
             InitializeComponent();
+
+            curCmdMgr = clsGlobals.g_gcPortMgr;
         }
 
         private void comboBoxCommandType_SelectedIndexChanged(object sender, EventArgs e)
@@ -35,15 +38,25 @@ namespace HP5890
 
         private void sendCommandToPort(object sender, EventArgs e)
         {
-            curCmdMgr.CompileHP5890Command(textBoxCommands.Text);
+            if(curCmdMgr != null) {
+                curCmdMgr.CompileHP5890Command(textBoxCommands.Text);
+            }
         }
 
         private void portSimulationBtn_Click(object sender, EventArgs e)
         {
             if (simulBtnStatus.Text.Equals("port simulation is enabled"))
+            {
                 simulBtnStatus.Text = "port simulation is disabled";
+                simulBtnStatus.ForeColor = Color.YellowGreen;
+                simulBtnStatus.BackColor = Color.Gray;
+            }
             else
+            {
                 simulBtnStatus.Text = "port simulation is enabled";
+                simulBtnStatus.BackColor = Color.YellowGreen;
+                simulBtnStatus.ForeColor = Color.DarkRed;
+            }
         }
     }
 }

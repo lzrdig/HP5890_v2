@@ -43,7 +43,7 @@ using System.Windows.Forms;
 
 namespace HP5890
 {
-    class HP5890command
+    public class HP5890command
     {
         String commandCode;
         String commandDescription;
@@ -70,7 +70,7 @@ namespace HP5890
         }
     }
 
-    class HP5890mgr
+    public class HP5890mgr:IHP5890mgr
     {
         private Char _terminationChr = '\n';
         private String _preCommand = "\x1B"+"C";
@@ -82,8 +82,15 @@ namespace HP5890
         /// Constructor. Mainly, it populates the list of commands
         /// </summary>
         public HP5890mgr()
-        { InitCommandList(); }
+        {
+            InitCommandList();
 
+            _serialPort = new SerialPort();
+        }
+
+        /// <summary>
+        /// Constructor. Mainly, it populates the list of commands and creates a port object with a given name.
+        /// </summary>
         public HP5890mgr(string portName)
         {
             _openPortName = portName;
@@ -108,6 +115,12 @@ namespace HP5890
         {
             set { _openPortName = value; }
             get { return _openPortName; }
+        }
+
+        public SerialPort PortObj
+        {
+            //set { _serialPort = value; }
+            get { return _serialPort; }
         }
         #endregion
 
@@ -136,8 +149,20 @@ namespace HP5890
             cmdObj.Apply("N+", "Enable HP5890 (node) Handshake -ENQ/ACK (default)", "Configuration");
             gcHP5890cmds.Add("N+", cmdObj);
             cmdObj.Apply("N-", "Disable HP5890 (node) Handshake -ENQ/ACK (default)", "Configuration");
-            gcHP5890cmds.Add("N+", cmdObj);
-            cmdObj.Apply("LA", "List all settings", "Configuration");
+            gcHP5890cmds.Add("N-", cmdObj);
+            cmdObj.Apply("X+", "Enable XON/XOFF protocol", "Configuration");
+            gcHP5890cmds.Add("X+", cmdObj);
+            cmdObj.Apply("X-", "Disable XON/XOFF protocol (default)", "Configuration");
+            gcHP5890cmds.Add("X-", cmdObj);
+            cmdObj.Apply("RS", "Define read sequence (default (none))", "Configuration");
+            gcHP5890cmds.Add("RS", cmdObj);
+            cmdObj.Apply("TS", "Define termination sequence (default (CR/LF))", "Configuration");
+            gcHP5890cmds.Add("TS", cmdObj);
+            cmdObj.Apply("IC", "Read hp 5890 instrument configuration", "Status and Setpoint");
+            gcHP5890cmds.Add("IC", cmdObj);
+            cmdObj.Apply("AT", "Read actual temperatures and flows", "Status and Setpoint");
+            gcHP5890cmds.Add("AT", cmdObj);
+            cmdObj.Apply("LA", "List all settings", "ListAll");
             gcHP5890cmds.Add("LA", cmdObj);
         }
 
@@ -170,6 +195,14 @@ namespace HP5890
                     throw new Exception("Serial Port is not Open");
             }
             catch (Exception exc){ MessageBox.Show(exc.Message); }
+        }
+
+        public void ReadUntilTermSeq(string cmdStr)
+        {
+            byte[] buffer;
+
+            while (_serialPort.BytesToRead > 0)
+                _serialPort.ReadByte();
         }
 
         #region IDENTIFICATION

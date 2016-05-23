@@ -63,6 +63,16 @@ namespace HP5890.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _112_RightArrowShort_Grey {
+            get {
+                object obj = ResourceManager.GetObject("112_RightArrowShort_Grey", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap Green_Arrow {
             get {
                 object obj = ResourceManager.GetObject("Green Arrow", resourceCulture);

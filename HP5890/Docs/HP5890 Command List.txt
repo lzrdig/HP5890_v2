@@ -27,13 +27,13 @@ TS		Define termination sequence (default (CR/LF))       Configuration
 X+		Enable XON/XOFF protocol                            Configuration
 X-		Disable XON/XOFF protocol (default)                 Configuration
 AR 		Acquire or release remote control; locks keyboard   Status and Setpoint
-AT		read actual temperatures and flows                  Status and Setpoint
+AT		Read actual temperatures and flows                  Status and Setpoint
 CA		change all; send a workfile to HP 5890              Status and Setpoint
-EV		read HP 5890 environmental status
-IC		read hp 5890 instrument configuration
-IF		read hp 5890 instrument fault string
-IK 		read last hp 5890 key pressed
-LA		list all; receive a workfile from HP 5890
+EV		Read HP 5890 environmental status
+IC		Read hp 5890 instrument configuration
+IF		Read hp 5890 instrument fault string
+IK 		Read last hp 5890 key pressed
+LA		list all; receive a workfile from HP 5890           Status and Setpoint
 LU		lock or unlock the start key
 OT		output text to the hp 5890 display
 RF		read Hp 5890 serial interface fault word            Status and Setpoint
