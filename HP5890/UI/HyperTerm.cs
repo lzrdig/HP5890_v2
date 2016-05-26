@@ -39,7 +39,7 @@ namespace HP5890
         private void sendCommandToPort(object sender, EventArgs e)
         {
             if(curCmdMgr != null) {
-                curCmdMgr.CompileHP5890Command(textBoxCommands.Text);
+                textBoxResponses.Text += string.Format("Sending the command: {0}\n", curCmdMgr.CompileHP5890Command(textBoxCommands.Text));
             }
         }
 

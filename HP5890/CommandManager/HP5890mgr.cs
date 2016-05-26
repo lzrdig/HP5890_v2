@@ -45,28 +45,31 @@ namespace HP5890
 {
     public class HP5890command
     {
-        String commandCode;
-        String commandDescription;
-        String commandGroup;
+        private String _commandCode;
+        private String _commandDescription;
+        private String _commandGroup;
+
+        public String commandCode { get; }
+        public String commandDescription { get; }
+        public String commandGroup { get; }
 
         public HP5890command()
         {
-            commandCode = "";
-            commandDescription = "";
-            commandGroup = "";
+            _commandCode = "";
+            _commandDescription = "";
+            _commandGroup = "";
         }
-
         public HP5890command(String cmdCode, String cmdDescr, String cmdGrup)
         {
-            commandCode = cmdCode;
-            commandDescription = cmdDescr;
-            commandGroup = cmdGrup;
+            _commandCode = cmdCode;
+            _commandDescription = cmdDescr;
+            _commandGroup = cmdGrup;
         }
         public void Apply(String cmdCode, String cmdDescr, String cmdGrup)
         {
-            commandCode = cmdCode;
-            commandDescription = cmdDescr;
-            commandGroup = cmdGrup;
+            _commandCode = cmdCode;
+            _commandDescription = cmdDescr;
+            _commandGroup = cmdGrup;
         }
     }
 
@@ -172,7 +175,8 @@ namespace HP5890
 
             if(gcHP5890cmds.ContainsKey(hwCmd))
             {
-                HP5890command curCmd = gcHP5890cmds[hwCmd];                
+                HP5890command curCmd = gcHP5890cmds[hwCmd];
+                outCommand = curCmd.commandCode;
             }
 
             return outCommand;
