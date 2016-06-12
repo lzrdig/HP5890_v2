@@ -11,7 +11,7 @@ namespace HP5890
 
         public override void Load()
         {
-            Bind<IHP5890mgr>().To<HP5890mgr>();
+            Bind<IHP5890mgr>().To<HP5890mgr>().InSingletonScope();
             //Bind<HP5890mgr>().ToSelf().InSingletonScope();
         }
 

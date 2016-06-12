@@ -33,6 +33,7 @@
             this.initializeOnStartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.initializeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rS232PortConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hyperTerminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.methodToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -41,8 +42,10 @@
             this.mainControlToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chartToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.indicatorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.hyperTerminalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainWndStatusBar = new System.Windows.Forms.StatusStrip();
+            this.portStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.mainWndMenu.SuspendLayout();
+            this.mainWndStatusBar.SuspendLayout();
             this.SuspendLayout();
             // 
             // mainWndMenu
@@ -65,7 +68,7 @@
             this.rS232PortConfigurationToolStripMenuItem,
             this.hyperTerminalToolStripMenuItem});
             this.communicationToolStripMenuItem.Name = "communicationToolStripMenuItem";
-            this.communicationToolStripMenuItem.Size = new System.Drawing.Size(106, 20);
+            this.communicationToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
             this.communicationToolStripMenuItem.Text = "Communication";
             // 
             // initializeOnStartToolStripMenuItem
@@ -87,6 +90,13 @@
             this.rS232PortConfigurationToolStripMenuItem.Text = "RS232 Port Configuration";
             this.rS232PortConfigurationToolStripMenuItem.Click += new System.EventHandler(this.rS232PortConfigurationToolStripMenuItem_Click);
             // 
+            // hyperTerminalToolStripMenuItem
+            // 
+            this.hyperTerminalToolStripMenuItem.Name = "hyperTerminalToolStripMenuItem";
+            this.hyperTerminalToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.hyperTerminalToolStripMenuItem.Text = "Hyper Terminal";
+            this.hyperTerminalToolStripMenuItem.Click += new System.EventHandler(this.hyperTerminalToolStripMenuItem_Click);
+            // 
             // methodToolStripMenuItem
             // 
             this.methodToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -94,25 +104,25 @@
             this.loadToolStripMenuItem,
             this.saveToolStripMenuItem});
             this.methodToolStripMenuItem.Name = "methodToolStripMenuItem";
-            this.methodToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.methodToolStripMenuItem.Size = new System.Drawing.Size(55, 20);
             this.methodToolStripMenuItem.Text = "Method";
             // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.loadToolStripMenuItem.Text = "Load";
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // viewToolStripMenuItem
@@ -122,39 +132,49 @@
             this.chartToolStripMenuItem,
             this.indicatorsToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // mainControlToolStripMenuItem
             // 
             this.mainControlToolStripMenuItem.Name = "mainControlToolStripMenuItem";
-            this.mainControlToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.mainControlToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.mainControlToolStripMenuItem.Text = "Main Control";
             // 
             // chartToolStripMenuItem
             // 
             this.chartToolStripMenuItem.Name = "chartToolStripMenuItem";
-            this.chartToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.chartToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.chartToolStripMenuItem.Text = "Chart";
             // 
             // indicatorsToolStripMenuItem
             // 
             this.indicatorsToolStripMenuItem.Name = "indicatorsToolStripMenuItem";
-            this.indicatorsToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.indicatorsToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.indicatorsToolStripMenuItem.Text = "Indicators...";
             // 
-            // hyperTerminalToolStripMenuItem
+            // mainWndStatusBar
             // 
-            this.hyperTerminalToolStripMenuItem.Name = "hyperTerminalToolStripMenuItem";
-            this.hyperTerminalToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.hyperTerminalToolStripMenuItem.Text = "Hyper Terminal";
-            this.hyperTerminalToolStripMenuItem.Click += new System.EventHandler(this.hyperTerminalToolStripMenuItem_Click);
+            this.mainWndStatusBar.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.portStatus});
+            this.mainWndStatusBar.Location = new System.Drawing.Point(0, 530);
+            this.mainWndStatusBar.Name = "mainWndStatusBar";
+            this.mainWndStatusBar.Size = new System.Drawing.Size(718, 22);
+            this.mainWndStatusBar.TabIndex = 3;
+            this.mainWndStatusBar.Text = "statusStrip1";
+            // 
+            // portStatus
+            // 
+            this.portStatus.Name = "portStatus";
+            this.portStatus.Size = new System.Drawing.Size(30, 17);
+            this.portStatus.Text = "COM";
             // 
             // MainWnd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(718, 552);
+            this.Controls.Add(this.mainWndStatusBar);
             this.Controls.Add(this.mainWndMenu);
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.mainWndMenu;
@@ -162,6 +182,8 @@
             this.Text = "HP5890";
             this.mainWndMenu.ResumeLayout(false);
             this.mainWndMenu.PerformLayout();
+            this.mainWndStatusBar.ResumeLayout(false);
+            this.mainWndStatusBar.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -183,6 +205,8 @@
         private System.Windows.Forms.ToolStripMenuItem chartToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem indicatorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hyperTerminalToolStripMenuItem;
+        private System.Windows.Forms.StatusStrip mainWndStatusBar;
+        private System.Windows.Forms.ToolStripStatusLabel portStatus;
     }
 }
 

@@ -23,6 +23,54 @@ namespace HP5890
             mainFrm = clsGlobals.g_frmobjMainWnd;
             portForm = clsGlobals.g_frmobjRS232Config;
             comPort = clsGlobals.g_comPort;
+
+            if (comPort.IsOpen)
+            {
+                PortStateInd.Text = "Port Open";
+
+                baudRateList.Text = comPort.BaudRate.ToString();
+                parityList.Text = comPort.Parity.ToString();
+                dataBitsList.Text = comPort.DataBits.ToString();
+                stopBitList.Text = comPort.StopBits.ToString();
+
+                baudRateList.Enabled = true;
+                parityList.Enabled = true;
+                dataBitsList.Enabled = true;
+                stopBitList.Enabled = true;
+                flowCtrlList.Enabled = true;
+
+                PortStateBtn.Enabled = true;
+                PortStateInd.Visible = true;
+                PortFindBtn.Enabled = false;
+            }
+            mainFrm.SetPortStatusWnd(string.Format("{0} is {1} ", comPort.PortName, comPort.IsOpen ? string.Format("open"): string.Format("closed")));
+        }
+
+        public void UpdateControlValues()
+        {
+            baudRateList.Enabled = true;
+            statusWnd.AppendText("\nBaud rate = " + comPort.BaudRate.ToString());
+            baudRateList.Text = comPort.BaudRate.ToString();
+            statusWnd.AppendText("\nData bits = " + comPort.DataBits.ToString());
+            dataBitsList.Text = comPort.DataBits.ToString();
+            statusWnd.AppendText("\nHandshake control = " + comPort.Handshake.ToString());
+            flowCtrlList.Text = comPort.Handshake.ToString();
+            statusWnd.AppendText("\nParity = " + comPort.Parity.ToString());
+            parityList.Text = comPort.Parity.ToString();
+            statusWnd.AppendText("\nStop Bit = " + comPort.StopBits.ToString());
+            stopBitList.Text = comPort.StopBits.ToString();
+        }
+
+        public void UpdatePortStateBtnText()
+        {
+            if (comPort.IsOpen)
+            {
+                PortStateInd.Text = "Port Open";
+            }
+            else
+            {
+                PortStateInd.Text = "Port Closed";
+            }
         }
 
         private void PortFindBtn_Click(object sender, EventArgs e)
@@ -76,6 +124,8 @@ namespace HP5890
 
                 UpdatePortStateBtnText();
                 UpdateControlValues();
+
+                baudRateList.SelectedItem = "19200";
             }
         }
 
@@ -89,10 +139,19 @@ namespace HP5890
             }
             else
             {
+                comPort.BaudRate = Convert.ToInt32(baudRateList.Text.Equals(string.Empty) ? comPort.BaudRate : Convert.ToInt32(baudRateList.Text));
+                comPort.DataBits = Convert.ToInt16(dataBitsList.Text.Equals(string.Empty) ? comPort.DataBits : Convert.ToInt16(dataBitsList.Text.Split(' ').ElementAt(0)));
+                comPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), (stopBitList.Text.Equals(string.Empty) ? comPort.StopBits.ToString() : stopBitList.Text));
+                comPort.Handshake = (Handshake)Enum.Parse(typeof(Handshake), (flowCtrlList.Text.Equals(string.Empty) ? comPort.Handshake.ToString() : flowCtrlList.Text));
+                comPort.Parity = (Parity)Enum.Parse(typeof(Parity), (parityList.Text.Equals(string.Empty) ? comPort.Parity.ToString() : parityList.Text));
+
                 comPort.Open();
+
                 PortStateInd.Text = "Port Open";
                 PortStateBtn.Text = "Close";
             }
+
+            mainFrm.SetPortStatusWnd(string.Format("{0} is {1} ", comPort.PortName, comPort.IsOpen ? string.Format("open") : string.Format("closed")));
         }
 
         private void PortStateInd_Click(object sender, EventArgs e)
@@ -102,47 +161,37 @@ namespace HP5890
 
         private void PortSettingsUpdate(object sender, EventArgs e)
         {
+            UpdatePortStateBtnText();
+
             if (PortStateInd.Text == "Port Open")
             {
                 PortStateBtn.Text = "Close";
                 comPort.Close();
                 //comPort.PortName = Convert.ToString(portsList.Text);
-                comPort.BaudRate = Convert.ToInt32(baudRateList.Text);
-                comPort.DataBits = Convert.ToInt16(dataBitsList.Text);
-                comPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), stopBitList.Text);
-                comPort.Handshake = (Handshake)Enum.Parse(typeof(Handshake), flowCtrlList.Text);
-                comPort.Parity = (Parity)Enum.Parse(typeof(Parity), parityList.Text);
+                comPort.BaudRate = Convert.ToInt32(baudRateList.Text.Equals(string.Empty) ? comPort.BaudRate:Convert.ToInt32(baudRateList.Text) );
+                comPort.DataBits = Convert.ToInt16(dataBitsList.Text.Equals(string.Empty) ? comPort.DataBits:Convert.ToInt16(dataBitsList.Text));
+                comPort.StopBits = (StopBits)Enum.Parse(typeof(StopBits), (stopBitList.Text.Equals(string.Empty) ? comPort.StopBits.ToString() : stopBitList.Text));
+                comPort.Handshake = (Handshake)Enum.Parse(typeof(Handshake), (flowCtrlList.Text.Equals(string.Empty) ? comPort.Handshake.ToString() : flowCtrlList.Text));
+                comPort.Parity = (Parity)Enum.Parse(typeof(Parity), (parityList.Text.Equals(string.Empty) ? comPort.Parity.ToString() : parityList.Text));
                 comPort.Open();
 
                 UpdateControlValues();
             }
         }
 
-        public void UpdateControlValues()
-        {
-            baudRateList.Enabled = true;
-            statusWnd.AppendText("\nBaud rate = " + comPort.BaudRate.ToString());
-            baudRateList.Text = comPort.BaudRate.ToString();
-            statusWnd.AppendText("\nData bits = " + comPort.DataBits.ToString());
-            dataBitsList.Text = comPort.DataBits.ToString();
-            statusWnd.AppendText("\nHandshake control = " + comPort.Handshake.ToString());
-            flowCtrlList.Text = comPort.Handshake.ToString();
-            statusWnd.AppendText("\nParity = " + comPort.Parity.ToString());
-            parityList.Text = comPort.Parity.ToString();
-            statusWnd.AppendText("\nStop Bit = " + comPort.StopBits.ToString());
-            stopBitList.Text = comPort.StopBits.ToString();
-        }
 
-        public void UpdatePortStateBtnText()
+        private void RS232Form_Closing(object sender, FormClosingEventArgs e)
         {
-            if (comPort.IsOpen)
-            {
-                PortStateInd.Text = "Port Open";
-            }
-            else
-            {
-                PortStateInd.Text = "Port Closed";
-            }
+            List<Form> parentHtermForms = new List<Form>();
+
+            FormCollection openForms = Application.OpenForms;
+
+            foreach (Form fc in openForms)
+                if (fc.Name.Equals("HyperTermForm"))
+                {
+                    parentHtermForms.Add(fc);
+                    ((HyperTermForm)fc).UpdateControlState();
+                }
         }
     }
 }

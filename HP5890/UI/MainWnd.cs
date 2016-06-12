@@ -21,7 +21,7 @@ namespace HP5890
         {
             InitializeComponent();
 
-            _devPortMgr = (HP5890mgr)devPortMgr;
+            _devPortMgr = (HP5890mgr)devPortMgr;    //this also creates the SerialPort object
 
             clsGlobals.g_gcPortMgr = _devPortMgr;
             clsGlobals.g_comPort = _devPortMgr.PortObj;
@@ -32,6 +32,10 @@ namespace HP5890
             newGC.Show(); // Display the new form.
         }
 
+        public void SetPortStatusWnd(string msg)
+        {
+            portStatus.Text = msg;
+        }
 
         private void rS232PortConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
         {

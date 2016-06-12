@@ -63,7 +63,7 @@
             // 
             // PortFindBtn
             // 
-            this.PortFindBtn.Location = new System.Drawing.Point(24, 26);
+            this.PortFindBtn.Location = new System.Drawing.Point(24, 31);
             this.PortFindBtn.Name = "PortFindBtn";
             this.PortFindBtn.Size = new System.Drawing.Size(75, 23);
             this.PortFindBtn.TabIndex = 0;
@@ -74,7 +74,7 @@
             // PortsList
             // 
             this.PortsList.FormattingEnabled = true;
-            this.PortsList.Location = new System.Drawing.Point(147, 27);
+            this.PortsList.Location = new System.Drawing.Point(147, 32);
             this.PortsList.Name = "PortsList";
             this.PortsList.Size = new System.Drawing.Size(106, 21);
             this.PortsList.TabIndex = 1;
@@ -102,6 +102,7 @@
             this.baudRateList.Name = "baudRateList";
             this.baudRateList.Size = new System.Drawing.Size(106, 28);
             this.baudRateList.TabIndex = 2;
+            this.baudRateList.SelectedIndexChanged += new System.EventHandler(this.PortSettingsUpdate);
             // 
             // PortStateBtn
             // 
@@ -127,8 +128,8 @@
             this.stopBitList.Enabled = false;
             this.stopBitList.FormattingEnabled = true;
             this.stopBitList.Items.AddRange(new object[] {
-            "0 bits",
-            "1 bit"});
+            "0",
+            "1"});
             this.stopBitList.Location = new System.Drawing.Point(6, 80);
             this.stopBitList.Name = "stopBitList";
             this.stopBitList.Size = new System.Drawing.Size(106, 21);
@@ -199,10 +200,10 @@
             this.dataBitsList.Enabled = false;
             this.dataBitsList.FormattingEnabled = true;
             this.dataBitsList.Items.AddRange(new object[] {
-            "5 bits",
-            "6 bits",
-            "7 bits",
-            "8 bits"});
+            "5",
+            "6",
+            "7",
+            "8"});
             this.dataBitsList.Location = new System.Drawing.Point(6, 53);
             this.dataBitsList.Name = "dataBitsList";
             this.dataBitsList.Size = new System.Drawing.Size(106, 21);
@@ -251,9 +252,9 @@
             this.PortStateInd.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PortStateInd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.PortStateInd.ForeColor = System.Drawing.Color.Lime;
-            this.PortStateInd.Location = new System.Drawing.Point(147, 61);
+            this.PortStateInd.Location = new System.Drawing.Point(24, 1);
             this.PortStateInd.Name = "PortStateInd";
-            this.PortStateInd.Size = new System.Drawing.Size(106, 22);
+            this.PortStateInd.Size = new System.Drawing.Size(229, 22);
             this.PortStateInd.TabIndex = 9;
             this.PortStateInd.Text = "Port Closed";
             this.PortStateInd.TextAlign = System.Drawing.ContentAlignment.TopCenter;
@@ -273,6 +274,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Name = "RS232cfgForm";
             this.Text = "RS232cgf";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RS232Form_Closing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);

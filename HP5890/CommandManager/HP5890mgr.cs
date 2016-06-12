@@ -2,6 +2,8 @@
 using System.IO.Ports;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using System.Diagnostics;
+using HP5890.DTOs;
 
 //Command     Code Description
 
@@ -62,7 +64,7 @@ namespace HP5890
             commandDescription = cmdDescr;
             commandGroup = cmdGrup;
         }
-        public void Apply(String cmdCode, String cmdDescr, String cmdGrup)
+        public void Add(String cmdCode, String cmdDescr, String cmdGrup)
         {
             commandCode = cmdCode;
             commandDescription = cmdDescr;
@@ -70,13 +72,17 @@ namespace HP5890
         }
     }
 
+
     public class HP5890mgr:IHP5890mgr
     {
+        #region Members
         private Char _terminationChr = '\n';
         private String _preCommand = "\x1B"+"C";
+        private String _postCommand = "";
         private String _openPortName = "COM1";
         private SerialPort _serialPort = null;
         protected Dictionary<string,HP5890command> gcHP5890cmds = new Dictionary<string,HP5890command>();
+        #endregion
 
         /// <summary>
         /// Constructor. Mainly, it populates the list of commands
@@ -93,8 +99,9 @@ namespace HP5890
         /// </summary>
         public HP5890mgr(string portName)
         {
-            _openPortName = portName;
             InitCommandList();
+
+            _openPortName = portName;
             _serialPort = new SerialPort(portName);
         }
 
@@ -109,6 +116,12 @@ namespace HP5890
         {
             set { _preCommand = value; }
             get { return _preCommand; }
+        }
+
+        public String PostCmdStr
+        {
+            set { _postCommand = value; }
+            get { return _postCommand; }
         }
 
         public String OpenPortName
@@ -128,41 +141,41 @@ namespace HP5890
         {
             HP5890command cmdObj = new HP5890command();
 
-            cmdObj.Apply("ID", "Identification Command", "Identification");
+            cmdObj.Add("ID", "Identification Command", "Identification");
             gcHP5890cmds.Add("ID", cmdObj);
-            cmdObj.Apply("EP", "Enable Even Parity", "Configuration");
+            cmdObj.Add("EP", "Enable Even Parity", "Configuration");
             gcHP5890cmds.Add("EP", cmdObj);
-            cmdObj.Apply("OP", "Enable Odd Parity", "Configuration");
+            cmdObj.Add("OP", "Enable Odd Parity", "Configuration");
             gcHP5890cmds.Add("OP", cmdObj);
-            cmdObj.Apply("ZP", "Disable Parity", "Configuration");
+            cmdObj.Add("ZP", "Disable Parity", "Configuration");
             gcHP5890cmds.Add("ZP", cmdObj);
-            cmdObj.Apply("DF", "Set HP5890 Default Configuration", "Configuration");
+            cmdObj.Add("DF", "Set HP5890 Default Configuration", "Configuration");
             gcHP5890cmds.Add("DF", cmdObj);
-            cmdObj.Apply("E+", "Enable Echo", "Configuration");
+            cmdObj.Add("E+", "Enable Echo", "Configuration");
             gcHP5890cmds.Add("E+", cmdObj);
-            cmdObj.Apply("E-", "Disable Echo", "Configuration");
+            cmdObj.Add("E-", "Disable Echo", "Configuration");
             gcHP5890cmds.Add("E-", cmdObj);
-            cmdObj.Apply("H+", "Enable Host Handshake -ENQ/ACK (default)", "Configuration");
+            cmdObj.Add("H+", "Enable Host Handshake -ENQ/ACK (default)", "Configuration");
             gcHP5890cmds.Add("H+", cmdObj);
-            cmdObj.Apply("H-", "Disable Host Handshake", "Configuration");
+            cmdObj.Add("H-", "Disable Host Handshake", "Configuration");
             gcHP5890cmds.Add("H-", cmdObj);
-            cmdObj.Apply("N+", "Enable HP5890 (node) Handshake -ENQ/ACK (default)", "Configuration");
+            cmdObj.Add("N+", "Enable HP5890 (node) Handshake -ENQ/ACK (default)", "Configuration");
             gcHP5890cmds.Add("N+", cmdObj);
-            cmdObj.Apply("N-", "Disable HP5890 (node) Handshake -ENQ/ACK (default)", "Configuration");
+            cmdObj.Add("N-", "Disable HP5890 (node) Handshake -ENQ/ACK (default)", "Configuration");
             gcHP5890cmds.Add("N-", cmdObj);
-            cmdObj.Apply("X+", "Enable XON/XOFF protocol", "Configuration");
+            cmdObj.Add("X+", "Enable XON/XOFF protocol", "Configuration");
             gcHP5890cmds.Add("X+", cmdObj);
-            cmdObj.Apply("X-", "Disable XON/XOFF protocol (default)", "Configuration");
+            cmdObj.Add("X-", "Disable XON/XOFF protocol (default)", "Configuration");
             gcHP5890cmds.Add("X-", cmdObj);
-            cmdObj.Apply("RS", "Define read sequence (default (none))", "Configuration");
+            cmdObj.Add("RS", "Define read sequence (default (none))", "Configuration");
             gcHP5890cmds.Add("RS", cmdObj);
-            cmdObj.Apply("TS", "Define termination sequence (default (CR/LF))", "Configuration");
+            cmdObj.Add("TS", "Define termination sequence (default (CR/LF))", "Configuration");
             gcHP5890cmds.Add("TS", cmdObj);
-            cmdObj.Apply("IC", "Read hp 5890 instrument configuration", "Status and Setpoint");
+            cmdObj.Add("IC", "Read hp 5890 instrument configuration", "Status and Setpoint");
             gcHP5890cmds.Add("IC", cmdObj);
-            cmdObj.Apply("AT", "Read actual temperatures and flows", "Status and Setpoint");
+            cmdObj.Add("AT", "Read actual temperatures and flows", "Status and Setpoint");
             gcHP5890cmds.Add("AT", cmdObj);
-            cmdObj.Apply("LA", "List all settings", "ListAll");
+            cmdObj.Add("LA", "List all settings", "ListAll");
             gcHP5890cmds.Add("LA", cmdObj);
         }
 
@@ -182,14 +195,12 @@ namespace HP5890
         {
             string commandToSend;
 
-            commandToSend = cmdStr + _terminationChr;
+            commandToSend = PreCmdStr + cmdStr + TermChar;
 
             try {
-                SerialPort curPort = new SerialPort(_openPortName);
-
-                if (curPort.IsOpen)
+                if (_serialPort.IsOpen)
                 {
-                    curPort.Write(commandToSend);
+                    _serialPort.Write(commandToSend);
                 }
                 else
                     throw new Exception("Serial Port is not Open");
@@ -197,12 +208,27 @@ namespace HP5890
             catch (Exception exc){ MessageBox.Show(exc.Message); }
         }
 
-        public void ReadUntilTermSeq(string cmdStr)
+        public byte[] ReadUntilTermSeq(string cmdStr)
         {
-            byte[] buffer;
+            byte[] buffer = new byte[1024];
+            int curOffset = 0;
+            int count = 1;
 
+            _serialPort.ReadTimeout = 200;
             while (_serialPort.BytesToRead > 0)
-                _serialPort.ReadByte();
+            {
+                try
+                {
+                    _serialPort.Read(buffer, curOffset, count);
+                    curOffset += count;
+                }
+                catch (TimeoutException ex)
+                {
+                    throw;
+                }
+            }
+
+            return buffer;
         }
 
         #region IDENTIFICATION
@@ -221,6 +247,45 @@ namespace HP5890
         public void TSdefinetermseq()
         {//TS		Define termination sequence (default (CR/LF))
             SendCommand("TS");
+        }
+
+        #endregion
+
+        #region higher level CONFIGURATION commands (do return values)
+
+        public ReadyStateDataObj GetReadyState()
+        {
+            byte[] buff = new byte[1024];
+
+            SendCommand("RIRQ");
+
+            Stopwatch _stpWatch = Stopwatch.StartNew();
+            bool _continue = true;
+            while (_continue)
+            {
+                if ((PortObj.BytesToRead > 0) || (_stpWatch.ElapsedMilliseconds > 500))
+                {
+                    if (PortObj.BytesToRead > 0) buff = ReadUntilTermSeq("\n");
+                    _stpWatch.Stop();
+                    _continue = false;
+                }
+            }
+
+            ReadyStateDataObj rsStruct = new ReadyStateDataObj();
+
+            var str = System.Text.Encoding.Default.GetString(buff).ToCharArray();
+            rsStruct.OvenSCRAM = char.GetNumericValue((char)str.GetValue(3)).Equals(0) ? true:false;
+
+            return rsStruct;
+        }
+
+        public HP5890.DTOs.DetectorConfigDataObj GetConfiguration()
+        {
+            DetectorConfigDataObj cfgData = new DetectorConfigDataObj();
+
+            SendCommand("ICRQ");
+
+            return cfgData;
         }
 
         #endregion
