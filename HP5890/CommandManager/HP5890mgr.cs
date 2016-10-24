@@ -51,9 +51,9 @@ namespace HP5890
         private String _commandDescription;
         private String _commandGroup;
 
-        public String commandCode { get; }
-        public String commandDescription { get; }
-        public String commandGroup { get; }
+        public String commandCode { get; set; }
+        public String commandDescription { get; set; }
+        public String commandGroup { get; set; }
 
         public HP5890command()
         {
