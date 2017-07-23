@@ -212,14 +212,14 @@ namespace HP5890
             catch (Exception exc){ MessageBox.Show(exc.Message); }
         }
 
-        public byte[] ReadUntilTermSeq(string cmdStr)
+        public byte[] ReadUntilTermSeq()
         {
             byte[] buffer = new byte[1024];
             int curOffset = 0;
             int count = 1;
 
             _serialPort.ReadTimeout = 200;
-            while (_serialPort.BytesToRead > 0)
+            while (_serialPort.BytesToRead > 0 || buffer[curOffset] != '\n')
             {
                 try
                 {
@@ -228,9 +228,40 @@ namespace HP5890
                 }
                 catch (TimeoutException ex)
                 {
-                    throw;
+                    throw ex;
                 }
             }
+
+            return buffer;
+        }
+
+        public byte[] ReadAllFromPortBuffer(int timeoutInMs)
+        {
+            byte[] buffer = new byte[1024];
+            int curOffset = 0;
+            int count = 1;
+
+            Stopwatch _stpWatch = Stopwatch.StartNew();
+            bool _continue = true;
+            try
+            {
+                while (_continue)
+                {
+                    if (_stpWatch.ElapsedMilliseconds > timeoutInMs)
+                    {
+                        _stpWatch.Stop();
+                        _continue = false;
+                    }
+
+                    if (PortObj.BytesToRead > 0)
+                    {
+                        _serialPort.Read(buffer, curOffset, count);
+                        curOffset += count;
+                    }
+                }
+            }
+            catch (TimeoutException ex) { throw ex; }
+            finally { _stpWatch.Stop(); }
 
             return buffer;
         }
@@ -258,22 +289,12 @@ namespace HP5890
         #region higher level CONFIGURATION commands (do return values)
 
         public ReadyStateDataObj GetReadyState()
-        {
+        {//RI read "run and readiness" information                  Status and Setpoint
             byte[] buff = new byte[1024];
 
             SendCommand("RIRQ");
 
-            Stopwatch _stpWatch = Stopwatch.StartNew();
-            bool _continue = true;
-            while (_continue)
-            {
-                if ((PortObj.BytesToRead > 0) || (_stpWatch.ElapsedMilliseconds > 500))
-                {
-                    if (PortObj.BytesToRead > 0) buff = ReadUntilTermSeq("\n");
-                    _stpWatch.Stop();
-                    _continue = false;
-                }
-            }
+            buff = ReadAllFromPortBuffer(500);
 
             ReadyStateDataObj rsStruct = new ReadyStateDataObj();
 

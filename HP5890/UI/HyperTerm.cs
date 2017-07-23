@@ -112,7 +112,7 @@ namespace HP5890
 
         private void readPort_Click(object sender, EventArgs e)
         {
-            byte[] buffer = curCmdMgr.ReadUntilTermSeq("\n");
+            byte[] buffer = curCmdMgr.ReadUntilTermSeq();
 
             String str = System.Text.Encoding.Default.GetString(buffer);
             textBoxResponses.Text += "\r\n" + str;
@@ -135,7 +135,7 @@ namespace HP5890
         {
             if (comPort.BytesToRead > 0)
             {
-                byte[] buffer = curCmdMgr.ReadUntilTermSeq("\n");
+                byte[] buffer = curCmdMgr.ReadUntilTermSeq();
 
                 String str = System.Text.Encoding.Default.GetString(buffer);
                 textBoxResponses.Text += str;

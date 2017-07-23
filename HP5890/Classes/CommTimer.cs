@@ -1,5 +1,4 @@
-﻿using System;
-using System.Timers;
+﻿using System.Timers;
 
 /// <summary>
 /// Summary description for CommTimer

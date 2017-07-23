@@ -14,6 +14,13 @@ namespace HP5890
         public GCctrl()
         {
             InitializeComponent();
+
+            timer4GCdlg.Tick += Timer4GCdlg_Tick;
+        }
+
+        private void Timer4GCdlg_Tick(object sender, EventArgs e)
+        {
+            throw new NotImplementedException();
         }
     }
 }
