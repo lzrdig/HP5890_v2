@@ -63,20 +63,30 @@ namespace HP5890.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap _112_RightArrowShort_Grey {
+        internal static System.Drawing.Bitmap GreenArrow {
             get {
-                object obj = ResourceManager.GetObject("112_RightArrowShort_Grey", resourceCulture);
+                object obj = ResourceManager.GetObject("GreenArrow", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
         
         /// <summary>
-        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
         /// </summary>
-        internal static System.Drawing.Bitmap Green_Arrow {
+        internal static System.Drawing.Icon RightArrowShort_Grey {
             get {
-                object obj = ResourceManager.GetObject("Green Arrow", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
+                object obj = ResourceManager.GetObject("RightArrowShort_Grey", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+        /// </summary>
+        internal static System.Drawing.Icon RS232_Icon {
+            get {
+                object obj = ResourceManager.GetObject("RS232_Icon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
             }
         }
     }

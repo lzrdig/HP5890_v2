@@ -42,6 +42,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RS232cfgForm));
             this.PortFindBtn = new System.Windows.Forms.Button();
             this.PortsList = new System.Windows.Forms.ComboBox();
             this.baudRateList = new System.Windows.Forms.ListBox();
@@ -272,8 +273,9 @@
             this.Controls.Add(this.PortsList);
             this.Controls.Add(this.PortFindBtn);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RS232cfgForm";
-            this.Text = "RS232cgf";
+            this.Text = "RS232 Port Configuration";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.RS232Form_Closing);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

@@ -136,6 +136,7 @@
     <Content Include="Docs\HP5890 Command List.txt" />
     <Content Include="Docs\HP5890 Command List.xml" />
     <Content Include="Images\Green Arrow.GIF" />
+    <None Include="Resources\RS232_Icon.ico" />
     <None Include="Resources\112_RightArrowShort_Grey.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

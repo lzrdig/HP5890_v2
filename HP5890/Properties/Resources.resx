@@ -118,10 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Green Arrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
+  <data name="GreenArrow" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Images\Green Arrow.GIF;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="112_RightArrowShort_Grey" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\112_RightArrowShort_Grey.ico;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="RS232_Icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\RS232_Icon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="RightArrowShort_Grey" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\112_RightArrowShort_Grey.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

@@ -1,0 +1,49 @@
+<!DOCTYPE xml>
+<xml>
+  <Commands>
+    <Command Type="Configuration">
+      <Code>ID</Code>
+      <Description>Identification command</Description>
+    </Command>
+    <Command Type="Configuration">
+      <Code>EP</Code>
+      <Description>Enable Even Parity</Description>
+    </Command>
+    <List>
+      EP		Enable Even Parity                                  Configuration
+      OP 		Enable Odd Parity                                   Configuration
+      ZP		Disable Parity                                      Configuration
+      DF		Set HP 5890 default configuration                   Configuration
+      E+		Enable echo                                         Configuration
+      E-		Disable echo (default)                              Configuration
+      H+		Enable host handshake -ENQ/ACK                      Configuration
+      H-		Disable host handshake (default)                    Configuration
+      N+		Enable HP 5890 (node) handshake -ENQ/ACK (default)  Configuration
+      N-		Disable HP 5890 (node) handshake                    Configuration
+      RS		Define read sequence (default (none))               Configuration
+      TS		Define termination sequence (default (CR/LF))       Configuration
+      X+		Enable XON/XOFF protocol                            Configuration
+      X-		Disable XON/XOFF protocol (default)                 Configuration
+      AR 		Acquire or release remote control; locks keyboard   Status and Setpoint
+      AT		Read actual temperatures and flows                  Status and Setpoint
+      CA		change all; send a workfile to HP 5890              Status and Setpoint
+      EV		Read HP 5890 environmental status
+      IC		Read hp 5890 instrument configuration
+      IF		Read hp 5890 instrument fault string
+      IK 		Read last hp 5890 key pressed
+      LA		list all; receive a workfile from HP 5890           Status and Setpoint
+      LU		lock or unlock the start key
+      OT		output text to the hp 5890 display
+      RF		read Hp 5890 serial interface fault word            Status and Setpoint
+      RI		read run and readiness information                  Status and Setpoint
+      RK		perform remote keystrokes from the host             Status and Setpoint
+      RT		retransmit last message sent by the hp 5890         Status and Setpoint
+      HR		delays start until host is ready
+      SM		requests that the host be notified when the HP 5890 status is modified
+      ST		start notification when hp 5890 begins to run
+      CD 		configure data transfer                             Data Setup and Control
+      CP		configure signal producers                          Data Setup and Control
+      SD		send signal data                                    Data Setup and Control
+    </List>
+  </Commands>
+</xml>

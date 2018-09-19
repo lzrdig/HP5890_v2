@@ -99,7 +99,7 @@
             this.RunBtn.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.RunBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RunBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RunBtn.Image = global::HP5890.Properties.Resources._112_RightArrowShort_Grey;
+            this.RunBtn.Image = global::HP5890.Properties.Resources.GreenArrow;
             this.RunBtn.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.RunBtn.Location = new System.Drawing.Point(117, 39);
             this.RunBtn.Name = "RunBtn";
